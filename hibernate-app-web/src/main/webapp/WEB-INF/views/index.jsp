@@ -63,11 +63,11 @@
 				<div style="padding:1%">
 					<fieldset style="padding:1%">
 						<legend>Person Table</legend>
-						<form action="${pageContext.request.contextPath}/index" method="post">
+						<form id="personForm">
 							<div align="right" style="padding:1%">
-								<button type="submit" value="add" name="add">Add</button>
-								<button type="submit" value="update" name="update">Update</button>
-								<button type="submit" value="delete" name="delete">Delete</button>
+								<input type="button" value="Add" name="add" id="btnAdd">
+								<input type="button" value="Update" name="update" id="btnUpdate">
+								<input type="button" value="Delete" name="delete" id="btnDelete">
 							</div>
 							<table class="table" border="1">
 								<thead>
@@ -210,5 +210,18 @@
 		    }
 		}
 	</style>
+
+	<script src="<c:url value="/resources/js/jquery-2.2.3.min.js"/>"></script>
+	<script>
+		$("#btnAdd").on("click",function(){
+		   $("#personForm").attr("action", "${pageContext.request.contextPath}/add").submit();
+		});
+		$("#btnUpdate").on("click",function(){
+		   $("#personForm").attr("action", "${pageContext.request.contextPath}/update").submit();
+		});
+		$("#btnDelete").on("click",function(){
+		   $("#personForm").attr("action", "${pageContext.request.contextPath}/delete").submit();
+		});
+	</script>
 	</body>
 </html>

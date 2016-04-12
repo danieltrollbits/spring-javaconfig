@@ -14,9 +14,10 @@ import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.io.*;
 import java.lang.NumberFormatException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PersonServiceImpl implements PersonService {
@@ -24,30 +25,37 @@ public class PersonServiceImpl implements PersonService {
 	@Autowired
 	private PersonDao personDao;
 
+	@Override
 	public List<PersonDto> getAllPersons() {
 		return toDtos(personDao.getAllPersons());
 	}
 
+	@Override
 	public PersonDto getPersonById(int id) {
 		return toDto(personDao.getPersonById(id));
 	}
 
+	@Override
 	public PersonDto saveOrUpdatePerson(PersonDto personDto){
 		return toDto(personDao.saveOrUpdatePerson(toModel(personDto)));
 	}
 
+	@Override
 	public PersonDto deletePerson(int id){
 		return toDto(personDao.deletePerson(id));
 	}
 
+	@Override
 	public List<PersonDto> searchPerson(String lastName, String firstName, String middleName, String role) {
 		return toDtos(personDao.searchPerson(lastName, firstName, middleName, role));
 	}
 
+	@Override
 	public List<RoleDto> getRoles(){
 		return rolesToDtos(personDao.getRoles());
 	}
 
+	@Transactional
 	public RoleDto roleToDto(Role role){
 		RoleDto roleDto = new RoleDto();
 		roleDto.setId(role.getId());
@@ -55,6 +63,7 @@ public class PersonServiceImpl implements PersonService {
 		return roleDto;
 	}
 
+	@Transactional
 	public List<RoleDto> rolesToDtos(List<Role> roles){
 		List<RoleDto> roleDtos = new ArrayList<>();
 		for (Role role : roles){
@@ -63,6 +72,7 @@ public class PersonServiceImpl implements PersonService {
 		return roleDtos;
 	}
 
+	@Transactional
 	public PersonDto toDto(Person person){
 		PersonDto personDto = new PersonDto();
 		AddressDto addressDto = new AddressDto();
@@ -91,6 +101,7 @@ public class PersonServiceImpl implements PersonService {
 		return personDto;
 	}
 
+	@Transactional
 	public List<PersonDto> toDtos(List<Person> persons){
 		List<PersonDto> personDtos = new ArrayList<>();
 		for (Person person : persons){

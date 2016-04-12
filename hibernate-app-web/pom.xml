@@ -35,10 +35,6 @@
       <artifactId>hibernate-app-dto</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.training.hibernate</groupId>
-      <artifactId>hibernate-app-infra</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-dbcp2</artifactId>
     </dependency>

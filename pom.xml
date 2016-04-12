@@ -9,7 +9,6 @@
 
   <modules>
     <module>hibernate-app-core</module>
-    <module>hibernate-app-infra</module>
     <module>hibernate-app-web</module>
   </modules>
 
@@ -38,11 +37,6 @@
       <dependency>
         <groupId>com.training.hibernate</groupId>
         <artifactId>hibernate-app-services</artifactId>
-        <version>1.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>com.training.hibernate</groupId>
-        <artifactId>hibernate-app-infra</artifactId>
         <version>1.0-SNAPSHOT</version>
       </dependency>
       <dependency>

@@ -8,21 +8,22 @@ import com.training.hibernate.dao.PersonDao;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.SessionFactory;
-import org.springframework.transaction.annotation.Transactional;
+import org.hibernate.Session;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Repository;
 
+@Transactional
+@Repository
 public class PersonDaoImpl implements PersonDao{
 
+	@Autowired
 	private SessionFactory sessionFactory;
 
-	public PersonDaoImpl(SessionFactory sessionFactory){
-		this.sessionFactory = sessionFactory;
-	}
-
+    @SuppressWarnings("unchecked")
 	@Override
-	@Transactional
 	public List<Person> getAllPersons(){
-		@SuppressWarnings("unchecked")
 		List<Person> persons = (List<Person>) sessionFactory.getCurrentSession()
 			.createCriteria(Person.class)
 			.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
@@ -31,7 +32,6 @@ public class PersonDaoImpl implements PersonDao{
 	}
 
 	@Override
-	@Transactional
 	public Person getPersonById(int id) {
 		Person person = (Person) sessionFactory.getCurrentSession()
 			.createCriteria(Person.class)
@@ -40,8 +40,8 @@ public class PersonDaoImpl implements PersonDao{
 		return person;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional
 	public List<Person> searchPerson(String lastName, String firstName, String middleName, String role) {
 		Criteria criteria = sessionFactory.getCurrentSession()
 			.createCriteria(Person.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
@@ -58,13 +58,11 @@ public class PersonDaoImpl implements PersonDao{
 			criteria.createAlias("roles","role");
 			criteria.add(Restrictions.in("role.role",role));	
 		}*/
-		@SuppressWarnings("unchecked")
 		List<Person> persons = (List<Person>) criteria.list();
 		return persons;
 	}
 
 	@Override
-	@Transactional
 	public Person saveOrUpdatePerson(Person person) {
 		if(person.getId() == 0){
 			sessionFactory.getCurrentSession().save(person);
@@ -75,22 +73,25 @@ public class PersonDaoImpl implements PersonDao{
 		return person;
 	}
 
+	@Override
 	public Person deletePerson(int id){
-		Person person = (Person)sessionFactory.getCurrentSession().get(Person.class, id);
+		Person person = (Person) sessionFactory.getCurrentSession().get(Person.class, id);
 		sessionFactory.getCurrentSession().delete(person);
 		return person;
 	}
 
+	@Override
 	public Role getRoleByName(String name){
 		Role role = (Role) sessionFactory.getCurrentSession().createCriteria(Role.class)
 			.add(Restrictions.eq("role",name)).uniqueResult();
 		return role;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
 	public List<Role> getRoles(){
-		@SuppressWarnings("unchecked")
-		List<Role> roles = (List<Role>) sessionFactory.getCurrentSession()
-			.createCriteria(Role.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		List<Role> roles = (List<Role>) sessionFactory.getCurrentSession().createCriteria(Role.class)
+			.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		return roles;
 	}
 }
