@@ -8,7 +8,6 @@ import com.training.hibernate.dao.PersonDao;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.SessionFactory;
-import org.hibernate.Session;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +22,7 @@ public class PersonDaoImpl implements PersonDao{
 
     @SuppressWarnings("unchecked")
 	@Override
+	@Transactional(readOnly=true)
 	public List<Person> getAllPersons(){
 		List<Person> persons = (List<Person>) sessionFactory.getCurrentSession()
 			.createCriteria(Person.class)
@@ -54,10 +54,10 @@ public class PersonDaoImpl implements PersonDao{
 		if(!middleName.isEmpty()){
 			criteria.add(Restrictions.eq("middleName",middleName));	
 		}
-		/*if (!role.isEmpty()){
+		if (!role.isEmpty()){
 			criteria.createAlias("roles","role");
-			criteria.add(Restrictions.in("role.role",role));	
-		}*/
+			criteria.add(Restrictions.eq("role.role",role));
+		}
 		List<Person> persons = (List<Person>) criteria.list();
 		return persons;
 	}

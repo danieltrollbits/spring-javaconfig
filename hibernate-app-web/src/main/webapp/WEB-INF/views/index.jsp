@@ -17,7 +17,7 @@
 				<div style="padding:1%">
 					<fieldset style="padding:1%">
 						<legend>Search Filter</legend>
-						<form action="${pageContext.request.contextPath}/index" method="get">
+						<form action="${pageContext.request.contextPath}/search" method="get">
 							<div class="row">
 							    <div class="column column-6">
 							        <div class="row">
@@ -214,13 +214,16 @@
 	<script src="<c:url value="/resources/js/jquery-2.2.3.min.js"/>"></script>
 	<script>
 		$("#btnAdd").on("click",function(){
-		   $("#personForm").attr("action", "${pageContext.request.contextPath}/add").submit();
+		   $("#personForm").attr("action", "${pageContext.request.contextPath}/add")
+		   .attr("method","get").submit();
 		});
 		$("#btnUpdate").on("click",function(){
-		   $("#personForm").attr("action", "${pageContext.request.contextPath}/update").submit();
+		   $("#personForm").attr("action", "${pageContext.request.contextPath}/update")
+		   .attr("method","get").submit();
 		});
 		$("#btnDelete").on("click",function(){
-		   $("#personForm").attr("action", "${pageContext.request.contextPath}/delete").submit();
+		   $("#personForm").attr("action", "${pageContext.request.contextPath}/delete")
+		   .attr("method","post").submit();
 		});
 	</script>
 	</body>

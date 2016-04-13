@@ -17,7 +17,6 @@ import java.lang.NumberFormatException;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PersonServiceImpl implements PersonService {
@@ -55,7 +54,6 @@ public class PersonServiceImpl implements PersonService {
 		return rolesToDtos(personDao.getRoles());
 	}
 
-	@Transactional
 	public RoleDto roleToDto(Role role){
 		RoleDto roleDto = new RoleDto();
 		roleDto.setId(role.getId());
@@ -63,7 +61,6 @@ public class PersonServiceImpl implements PersonService {
 		return roleDto;
 	}
 
-	@Transactional
 	public List<RoleDto> rolesToDtos(List<Role> roles){
 		List<RoleDto> roleDtos = new ArrayList<>();
 		for (Role role : roles){
@@ -72,7 +69,6 @@ public class PersonServiceImpl implements PersonService {
 		return roleDtos;
 	}
 
-	@Transactional
 	public PersonDto toDto(Person person){
 		PersonDto personDto = new PersonDto();
 		AddressDto addressDto = new AddressDto();
@@ -101,7 +97,6 @@ public class PersonServiceImpl implements PersonService {
 		return personDto;
 	}
 
-	@Transactional
 	public List<PersonDto> toDtos(List<Person> persons){
 		List<PersonDto> personDtos = new ArrayList<>();
 		for (Person person : persons){
@@ -148,6 +143,7 @@ public class PersonServiceImpl implements PersonService {
 		return persons;
 	}
 
+	@Override
 	public PersonDto createPersonDto(String id, String firstName, String middleName, String lastName, String gender, String birthdate,
 		String employed, String gwa, String street, String houseNo, String barangay, String subdivision,
 		String city, String zipCode, String[] contactTypeList, String[] contactValueList, String[] contactId,
@@ -234,6 +230,7 @@ public class PersonServiceImpl implements PersonService {
 		return personDto;
 	}
 
+	@Override
 	public boolean isRequired(String firstName, String middleName, String lastName, String gender, String employed,
 		String street, String barangay, String subdivision, String city, String zipCode,
 		String[] contactTypeList, String[] contactValueList, String[] roleList){
@@ -247,6 +244,7 @@ public class PersonServiceImpl implements PersonService {
 		}
 	}
 
+	@Override
 	public boolean isDate(String strDate){
 		boolean isValid = false;
 		if(!strDate.isEmpty()){
@@ -266,6 +264,7 @@ public class PersonServiceImpl implements PersonService {
 		return isValid;
 	}
 
+	@Override
 	public boolean isNumber(String strNo){
 		if(strNo.matches("\\d+")){
 			return true; 
@@ -275,6 +274,7 @@ public class PersonServiceImpl implements PersonService {
 		}
 	}
 
+	@Override
 	public boolean isDecimal(String strDecimal){
 		if(strDecimal.matches("[1-9]\\d*(\\.\\d+)?$")){
 			return true; 

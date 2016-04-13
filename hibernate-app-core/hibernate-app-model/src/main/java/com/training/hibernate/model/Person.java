@@ -34,7 +34,7 @@ public class Person extends BaseEntity {
 	@Column(name = "gwa")
 	private float gwa;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "person", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "person", cascade = CascadeType.ALL)
 	private Set<Contact> contacts;
 	
 	@ManyToMany(fetch = FetchType.EAGER)

@@ -13,7 +13,7 @@ public class Contact extends BaseEntity {
 	@Column(name = "value")
 	private String value;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "person_id", nullable = false)
 	private Person person;
 

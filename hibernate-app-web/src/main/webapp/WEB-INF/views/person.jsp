@@ -6,7 +6,7 @@
 	<title>Person</title>
 </head>
 <body style="padding:2% 10% 10% 10%">
-	<form action="${pageContext.request.contextPath}/index" method="post">
+	<form action="${pageContext.request.contextPath}/save" method="post">
 		<div class="row">
 			<div class="column column-6"><span style="color:red">${error}</span></div>
 		</div>
