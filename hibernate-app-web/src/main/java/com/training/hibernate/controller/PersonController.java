@@ -36,16 +36,16 @@ public class PersonController {
 	}
 
 	@RequestMapping(value="/update", method = RequestMethod.GET)
-	public ModelAndView update(HttpServletRequest request){
+	public ModelAndView update(@RequestParam(value="personId",required=false) int[] personId){
 		PersonDto personDto = new PersonDto();
-		if (request.getParameterMap().containsKey("personId")){
-			personDto = personService.getPersonById(Integer.parseInt(request.getParameter("personId")));
+		if (personId != null && personId.length == 1){
+			personDto = personService.getPersonById(personId[0]);
 			ModelAndView model = new ModelAndView("person");
 			model.addObject("person",personDto);
     		return model;
     	}
     	else{
-    		return new ModelAndView("redirect:/");
+    		return new ModelAndView("redirect:/?message=Please select one person");
     	}
 	}
 
