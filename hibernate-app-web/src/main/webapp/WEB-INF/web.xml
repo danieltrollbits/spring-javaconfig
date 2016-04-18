@@ -8,7 +8,7 @@
 
   <context-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>/WEB-INF/spring/appServlet/applicationContext.xml</param-value>
+      <param-value>classpath*:com.training.hibernate.configuration.SpringRootConfiguration</param-value>
   </context-param>
 
   <listener>
@@ -20,7 +20,7 @@
       <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
       <init-param>
           <param-name>contextConfigLocation</param-name>
-          <param-value>/WEB-INF/spring/appServlet/servletContext.xml</param-value>
+          <param-value>classpath*:com.training.hibernate.configuration.SpringWebConfiguration</param-value>
       </init-param>
       <load-on-startup>1</load-on-startup>
   </servlet>
