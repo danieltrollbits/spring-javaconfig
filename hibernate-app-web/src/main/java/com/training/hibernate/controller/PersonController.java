@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.training.hibernate.services.PersonService;
 import com.training.hibernate.dto.PersonDto;
+import com.training.hibernate.dto.PersonTest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.WebDataBinder;
+import com.training.hibernate.editor.DateEditor;
+import com.training.hibernate.editor.GenderEditor;
+import com.training.hibernate.model.Gender;
+import java.util.Date;
+import org.springframework.validation.BindingResult;
+
 
 @Controller
 public class PersonController {
@@ -20,14 +30,35 @@ public class PersonController {
 	@Autowired
 	private PersonService personService;
 
+	@InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Date.class, new DateEditor());
+        binder.registerCustomEditor(Gender.class, new GenderEditor());
+    }
+
 	@RequestMapping(value="/", method=RequestMethod.GET)
-	public ModelAndView getAllPersons(){
+	public ModelAndView list(){
 		List<PersonDto> personDtos = personService.getAllPersons();
 		ModelAndView model = new ModelAndView("index");
 		model.addObject("persons",personDtos);
 		model.addObject("roles",personService.getRoles());
 		return model;
 	}
+
+	@RequestMapping(value="view/{personId}", method = RequestMethod.POST)
+	public ModelAndView view(@PathVariable String personId){
+		PersonDto personDto = new PersonDto();
+		if (personId != null){
+			personDto = personService.getPersonById(Integer.parseInt(personId));
+			ModelAndView model = new ModelAndView("person");
+			model.addObject("person",personDto);
+    		return model;
+    	}
+    	else{
+    		return new ModelAndView("redirect:/?message=Please select one person");
+    	}
+	}	
+
 
 	@RequestMapping(value="/add")
 	public ModelAndView add(){
@@ -78,6 +109,17 @@ public class PersonController {
 		model.addObject("persons",personDtos);
 		model.addObject("roles",personService.getRoles());
 		return model;
+	}
+
+	@RequestMapping(value="/test",method = RequestMethod.POST)
+	public ModelAndView test(@Valid PersonDto personDto, BindingResult result){
+		if(result.hasErrors()){
+			return new ModelAndView("redirect:/?error="+"Missing");
+		}
+		else{
+			return new ModelAndView("redirect:/?message="+"Person saved");	
+		}
+		
 	}
 
 	@RequestMapping(value="/save", method = RequestMethod.POST)

@@ -4,6 +4,7 @@ import java.util.Set;
 
 public class RoleDto extends BaseDto {
 
+	@NotBlank
 	private String role;
 
 	private Set<PersonDto> personDtos;

@@ -16,7 +16,7 @@ import com.training.hibernate.model.Role;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan({"com.training.hibernate.dao","com.training.hibernate.services"})
-public class SpringRootConfiguration {
+public class ApplicationContextConfig {
 
 	@Bean(name = "dataSource")
 	public BasicDataSource getDataSource() {

@@ -1,17 +1,22 @@
 package com.training.hibernate.dto;
 
 public class AddressDto {
-	
+
+	@NotBlank	
 	private String street;
 	
+	@NotNull
 	private int houseNo;
 
+	@NotBlank
 	private String barangay;
 	
 	private String subdivision;
 	
+	@NotBlank
 	private String city;
 	
+	@NotBlank
 	private String zipCode;
 
 	public AddressDto(){};

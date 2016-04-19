@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/grid.css"/>">
 </head>
 <body style="padding:2% 10% 10% 10%">
-	<form action="${pageContext.request.contextPath}/save" method="post">
+	<form action="${pageContext.request.contextPath}/test" method="post">
 		<div class="row">
 			<div class="column column-6"><span style="color:red">${error}</span></div>
 		</div>
@@ -131,19 +131,19 @@
 				        <div class="row">
 				            <div class="column column-4">Street<span class="required">*</span></div>
 				            <div class="column column-8">
-				            	<input type="text" name="street" value="${person.addressDto.street}">
+				            	<input type="text" name="address.street" value="${person.addressDto.street}">
 				            </div>
 				        </div>
 				        <div class="row">
 				            <div class="column column-4">Barangay<span class="required">*</span></div>
 				            <div class="column column-8">
-				            	<input type="text" name="barangay" value="${person.addressDto.barangay}">
+				            	<input type="text" name="address.barangay" value="${person.addressDto.barangay}">
 				            </div>
 				        </div>
 				        <div class="row">
 				            <div class="column column-4">City<span class="required">*</span></div>
 				            <div class="column column-8">
-			            		<input type="text" name="city" value="${person.addressDto.city}">
+			            		<input type="text" name="address.city" value="${person.addressDto.city}">
 				            </div>
 				        </div>
 				    </div>
@@ -151,19 +151,19 @@
 				        <div class="row">
 				            <div class="column column-4">House No.<span class="required">*</span></div>
 				            <div class="column column-8">
-				            	<input type="text" name="houseNo" value="${person.addressDto.houseNo}">
+				            	<input type="text" name="address.houseNo" value="${person.addressDto.houseNo}">
 				            </div>
 				        </div>
 				        <div class="row">
 				            <div class="column column-4">Subdivision</div>
 				            <div class="column column-8">
-				            	<input type="text" name="subdivision" value="${person.addressDto.subdivision}">
+				            	<input type="text" name="address.subdivision" value="${person.addressDto.subdivision}">
 				            </div>
 				        </div>
 				        <div class="row">
 				            <div class="column column-4">Zipcode<span class="required">*</span></div>
 				            <div class="column column-8">
-				            	<input type="text" name="zipcode" value="${person.addressDto.zipCode}">
+				            	<input type="text" name="address.zipCode" value="${person.addressDto.zipCode}">
 				            </div>
 				        </div>
 				    </div>

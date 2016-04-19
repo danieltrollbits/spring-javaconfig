@@ -18,7 +18,7 @@
 				<div style="padding:1%">
 					<fieldset style="padding:1%">
 						<legend>Search Filter</legend>
-						<form action="${pageContext.request.contextPath}/search" method="get">
+						<form action="search" method="get">
 							<div class="row">
 							    <div class="column column-6">
 							        <div class="row">
@@ -66,6 +66,7 @@
 						<legend>Person Table</legend>
 						<form id="personForm">
 							<div align="right" style="padding:1%">
+								<input type="button" value="View" name="view" id="btnView">
 								<input type="button" value="Add" name="add" id="btnAdd">
 								<input type="button" value="Update" name="update" id="btnUpdate">
 								<input type="button" value="Delete" name="delete" id="btnDelete">
@@ -115,6 +116,10 @@
 
 	<script src="<c:url value="/resources/js/jquery-2.2.3.min.js"/>"></script>
 	<script>
+		$("#btnView").on("click",function(){
+		   $("#personForm").attr("action", "${pageContext.request.contextPath}/view/3")
+		   .attr("method","post").submit();
+		});
 		$("#btnAdd").on("click",function(){
 		   $("#personForm").attr("action", "${pageContext.request.contextPath}/add")
 		   .attr("method","get").submit();

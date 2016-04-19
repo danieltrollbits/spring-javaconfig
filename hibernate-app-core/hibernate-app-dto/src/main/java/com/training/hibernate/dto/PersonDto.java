@@ -5,24 +5,34 @@ import com.training.hibernate.model.Gender;
 
 public class PersonDto extends BaseDto {
 
+	@NotBlank
 	private String lastName;
 
+	@NotBlank
 	private String firstName;
 
+	@NotBlank
 	private String middleName;
 
+	@NotNull
 	private Gender gender;
 	
+	@DateTimeFormat(pattern="MM/dd/yyyy")
+    @NotNull @Past
 	private Date birthdate;
 	
+	@Valid
 	private AddressDto addressDto;
 
+	@NotEmpty
 	private boolean employed;
 	
+	@NotNull
 	private float gwa;
 	
 	private Set<ContactDto> contactDtos;
 	
+	@Valid
 	private Set<RoleDto> roleDtos = new HashSet<RoleDto>(0);
 
 	public PersonDto(){};
