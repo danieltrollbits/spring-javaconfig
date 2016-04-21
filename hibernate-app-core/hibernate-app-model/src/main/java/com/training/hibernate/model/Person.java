@@ -40,9 +40,9 @@ public class Person extends BaseEntity {
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "PERSON_ROLE", joinColumns = {
 			@JoinColumn(name = "person_id", nullable = false, updatable = false) }, 
-			inverseJoinColumns = { @JoinColumn(name = "role_id", 
+			inverseJoinColumns = { @JoinColumn(name = "role_id",
 					nullable = false, updatable = false) })
-	private Set<Role> roles = new HashSet<Role>(0);
+	private Set<Role> roles = new LinkedHashSet<Role>(0);
 
 	public Person(){};
 

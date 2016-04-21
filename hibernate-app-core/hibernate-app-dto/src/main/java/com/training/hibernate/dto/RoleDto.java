@@ -1,10 +1,10 @@
 package com.training.hibernate.dto;
 
 import java.util.Set;
+import org.hibernate.validator.constraints.NotBlank;
 
 public class RoleDto extends BaseDto {
 
-	@NotBlank
 	private String role;
 
 	private Set<PersonDto> personDtos;
@@ -35,5 +35,13 @@ public class RoleDto extends BaseDto {
 
 	public void setPersonDtos(Set<PersonDto> personDtos){
 		this.personDtos = personDtos;
+	}
+
+	public String toString(){
+		return this.role;
+	}
+
+	public boolean equals(String str){
+		return str.equals(this.role);
 	}
 }

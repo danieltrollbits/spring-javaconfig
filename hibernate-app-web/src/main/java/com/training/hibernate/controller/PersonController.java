@@ -5,7 +5,8 @@ import java.util.ArrayList;
 
 import com.training.hibernate.services.PersonService;
 import com.training.hibernate.dto.PersonDto;
-import com.training.hibernate.dto.PersonTest;
+import com.training.hibernate.dto.RoleDto;
+import com.training.hibernate.dto.ContactDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import com.training.hibernate.editor.GenderEditor;
 import com.training.hibernate.model.Gender;
 import java.util.Date;
 import org.springframework.validation.BindingResult;
+import javax.validation.Valid;
 
 
 @Controller
@@ -46,23 +48,27 @@ public class PersonController {
 	}
 
 	@RequestMapping(value="view/{personId}", method = RequestMethod.POST)
-	public ModelAndView view(@PathVariable String personId){
+	public ModelAndView view(@PathVariable int[] personId){
 		PersonDto personDto = new PersonDto();
-		if (personId != null){
-			personDto = personService.getPersonById(Integer.parseInt(personId));
-			ModelAndView model = new ModelAndView("person");
-			model.addObject("person",personDto);
+		if(personId != null && personId.length == 1){
+			personDto = personService.getPersonById(personId[0]);
+			ModelAndView model = new ModelAndView("view");
+			model.addObject("personDto",personDto);
+			model.addObject("roles",personService.getRoles());
     		return model;
-    	}
-    	else{
-    		return new ModelAndView("redirect:/?message=Please select one person");
-    	}
+		}
+		else{
+			return new ModelAndView("redirect:/?message=Please select one person");
+		}
 	}	
 
 
 	@RequestMapping(value="/add")
 	public ModelAndView add(){
 		ModelAndView model = new ModelAndView("person");
+		PersonDto personDto = new PersonDto();
+		model.addObject("roles",personService.getRoles());
+		model.addObject("personDto",personDto);
 		return model;
 	}
 
@@ -72,7 +78,8 @@ public class PersonController {
 		if (personId != null && personId.length == 1){
 			personDto = personService.getPersonById(personId[0]);
 			ModelAndView model = new ModelAndView("person");
-			model.addObject("person",personDto);
+			model.addObject("personDto",personDto);
+			model.addObject("roles",personService.getRoles());
     		return model;
     	}
     	else{
@@ -111,63 +118,24 @@ public class PersonController {
 		return model;
 	}
 
-	@RequestMapping(value="/test",method = RequestMethod.POST)
-	public ModelAndView test(@Valid PersonDto personDto, BindingResult result){
-		if(result.hasErrors()){
-			return new ModelAndView("redirect:/?error="+"Missing");
-		}
-		else{
-			return new ModelAndView("redirect:/?message="+"Person saved");	
-		}
-		
-	}
-
 	@RequestMapping(value="/save", method = RequestMethod.POST)
-	public ModelAndView search(HttpServletRequest request){
-		PersonDto personDto = personService.createPersonDto(request.getParameter("personId"), request.getParameter("firstName"),
-				request.getParameter("middleName"), request.getParameter("lastName"),
-				request.getParameter("gender"), request.getParameter("birthdate"), request.getParameter("employed"),
-				request.getParameter("gwa"), request.getParameter("street"), request.getParameter("houseNo"),
-				request.getParameter("barangay"), request.getParameter("subdivision"), request.getParameter("city"),
-				request.getParameter("zipcode"), request.getParameterValues("contactType"),
-				request.getParameterValues("contactValue"), request.getParameterValues("contactId"),
-				request.getParameterValues("role"),request.getParameterValues("savedContactValue"),request.getParameterValues("savedContactType"));
-
-		boolean isRequired = personService.isRequired(request.getParameter("firstName"),
-				request.getParameter("middleName"), request.getParameter("lastName"),
-				request.getParameter("gender"), request.getParameter("employed"), request.getParameter("street"),
-				request.getParameter("barangay"), request.getParameter("subdivision"),
-				request.getParameter("city"), request.getParameter("zipcode"),
-				request.getParameterValues("contactType"), request.getParameterValues("contactValue"),
-				request.getParameterValues("role"));
-
-		boolean isNumber = personService.isNumber(request.getParameter("houseNo"));
-		boolean isDate = personService.isDate(request.getParameter("birthdate"));
-		boolean isDecimal = personService.isDecimal(request.getParameter("gwa"));
-
-		if (isRequired && isNumber && isDate && isDecimal){
-			personService.saveOrUpdatePerson(personDto);
-			return new ModelAndView("redirect:/?message="+"Person saved");
+	public ModelAndView search(@Valid PersonDto personDto, BindingResult result){
+		List<ContactDto> contactDtos = new ArrayList<>();
+		for (ContactDto c : personDto.getContactDtos()){
+			if (c.getType() != null && c.getValue() != ""){
+				contactDtos.add(c);
+			}
+		}
+		personDto.setContactDtos(contactDtos);
+		if(result.hasErrors()){
+			ModelAndView model = new ModelAndView("person");
+			model.addObject("roles",personService.getRoles());
+			return model;
 		}
 		else{
-			List<String> errors = new ArrayList<>();
-			if(!isRequired){
-				errors.add("Missing required fields");
-			}
-			if(!isDate){
-				errors.add("Invalid date format");
-			}
-			if(!isNumber){
-				errors.add("Invalid House no");
-			}
-			if(!isDecimal){
-				errors.add("Invalid gwa");
-			}
-			ModelAndView model = new ModelAndView("person");
-			model.addObject("errors",errors);
-			model.addObject("person",personDto);
-			return model;
-		}	
+			personService.saveOrUpdatePerson(personDto);
+			return new ModelAndView("redirect:/?message=Person saved");
+		}
 	}
 
 }

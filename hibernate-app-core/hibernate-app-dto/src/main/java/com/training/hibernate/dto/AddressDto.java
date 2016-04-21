@@ -1,22 +1,25 @@
 package com.training.hibernate.dto;
 
+import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class AddressDto {
 
-	@NotBlank	
+	@NotBlank(message = "Please enter your street")
 	private String street;
 	
-	@NotNull
+	@NotNull(message = "Please enter your house no")
 	private int houseNo;
 
-	@NotBlank
+	@NotBlank(message = "Please enter your barangay")
 	private String barangay;
 	
 	private String subdivision;
 	
-	@NotBlank
+	@NotBlank(message = "Please enter your city")
 	private String city;
 	
-	@NotBlank
+	@NotBlank(message = "Please enter your zipcode")
 	private String zipCode;
 
 	public AddressDto(){};

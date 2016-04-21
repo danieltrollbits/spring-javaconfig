@@ -116,8 +116,16 @@
 
 	<script src="<c:url value="/resources/js/jquery-2.2.3.min.js"/>"></script>
 	<script>
+		$('[name=personId]').on("click",function(){
+			if($('input[name=personId]:checked').size() > 1){
+				$("#btnView").attr("disabled",true);
+			}
+			else{
+				$("#btnView").attr("disabled",false);	
+			}
+		});
 		$("#btnView").on("click",function(){
-		   $("#personForm").attr("action", "${pageContext.request.contextPath}/view/3")
+		   $("#personForm").attr("action", "${pageContext.request.contextPath}/view/"+$('input[name=personId]:checked').val())
 		   .attr("method","post").submit();
 		});
 		$("#btnAdd").on("click",function(){

@@ -9,7 +9,6 @@ import java.beans.PropertyEditorSupport;
 
 public class DateEditor extends PropertyEditorSupport {
 
-    // Converts a String to a Category (when submitting form)
     @Override
     public void setAsText(String text) {
         DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
@@ -21,12 +20,5 @@ public class DateEditor extends PropertyEditorSupport {
         }
         this.setValue(date);
     }
-
-    // Converts a Category to a String (when displaying form)
-    /*@Override
-    public String getAsText() {
-        Category c = (Category) this.getValue();
-        return c.getName();
-    }*/
 
 }

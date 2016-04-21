@@ -3,37 +3,46 @@ package com.training.hibernate.dto;
 import java.util.*;
 import com.training.hibernate.model.Gender;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Past;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
+
 public class PersonDto extends BaseDto {
 
-	@NotBlank
+	@NotBlank(message = "Please enter your last name.")
 	private String lastName;
 
-	@NotBlank
+	@NotBlank(message = "Please enter your last name.")
 	private String firstName;
 
-	@NotBlank
+	@NotBlank(message = "Please enter your middle name.")
 	private String middleName;
 
-	@NotNull
+	@NotNull(message = "Please select gender.")
 	private Gender gender;
 	
-	@DateTimeFormat(pattern="MM/dd/yyyy")
-    @NotNull @Past
+	@NotNull(message = "Please enter your birthdate.")
+	@Past(message = "Invalid date.")
 	private Date birthdate;
 	
 	@Valid
 	private AddressDto addressDto;
 
-	@NotEmpty
+	@NotNull(message = "Please select employment status.")
 	private boolean employed;
 	
-	@NotNull
+	@NotNull(message = "Please enter your gwa.")
 	private float gwa;
 	
-	private Set<ContactDto> contactDtos;
+	private List<ContactDto> contactDtos;
 	
-	@Valid
-	private Set<RoleDto> roleDtos = new HashSet<RoleDto>(0);
+	@NotNull(message = "Please select role.")
+	private List<RoleDto> roleDtos = new ArrayList<RoleDto>(0);
 
 	public PersonDto(){};
 
@@ -115,19 +124,19 @@ public class PersonDto extends BaseDto {
 		this.gwa = gwa;
 	}
 
-	public Set<ContactDto> getContactDtos(){
+	public List<ContactDto> getContactDtos(){
 		return this.contactDtos;
 	}
 
-	public void setContactDtos(Set<ContactDto> contactDtos){
+	public void setContactDtos(List<ContactDto> contactDtos){
 		this.contactDtos = contactDtos;
 	}
 
-	public Set<RoleDto> getRoleDtos(){
+	public List<RoleDto> getRoleDtos(){
 		return this.roleDtos;
 	}
 
-	public void setRoleDtos(Set<RoleDto> roleDtos){
+	public void setRoleDtos(List<RoleDto> roleDtos){
 		this.roleDtos = roleDtos;
 	}
 

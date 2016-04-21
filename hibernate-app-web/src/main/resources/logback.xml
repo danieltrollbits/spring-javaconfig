@@ -9,7 +9,18 @@
 		</layout>
 	</appender>
 
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    	<encoder>
+      		<pattern>%-30(%d %-5level) [%thread] %logger{50} - %msg%n</pattern>
+      		<immediateFlush>true</immediateFlush>
+    	</encoder>
+  	</appender>
+
 	<logger name="org.springframework" level="debug"/>
+
+	<logger level="INFO" additivity="false" name="System.out">
+    	<appender-ref ref="CONSOLE"/>
+  	</logger>
 
 	<root level="debug">
 		<appender-ref ref="STDOUT" />
