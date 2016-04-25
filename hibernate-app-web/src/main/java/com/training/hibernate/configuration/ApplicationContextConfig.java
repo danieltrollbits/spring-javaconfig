@@ -12,11 +12,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.training.hibernate.model.Person;
 import com.training.hibernate.model.Contact;
 import com.training.hibernate.model.Role;
+import com.training.hibernate.model.PersonAudit;
+import com.training.hibernate.aspect.HijackBeforeMethod;
+import org.springframework.aop.framework.ProxyFactoryBean;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import com.training.hibernate.aspect.AuditPersonAspect;
 
+@EnableAspectJAutoProxy
 @Configuration
 @EnableTransactionManagement
 @ComponentScan({"com.training.hibernate.dao","com.training.hibernate.services"})
 public class ApplicationContextConfig {
+
+	@Bean
+     public AuditPersonAspect getAuditPersonAspect() {
+         return new AuditPersonAspect();
+     }
 
 	@Bean(name = "dataSource")
 	public BasicDataSource getDataSource() {
@@ -32,7 +44,7 @@ public class ApplicationContextConfig {
 	@Bean(name = "sessionFactory")
 	public SessionFactory getSessionFactory(BasicDataSource dataSource) {
 	    LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
-	    sessionBuilder.addAnnotatedClasses(Person.class,Contact.class,Role.class);
+	    sessionBuilder.addAnnotatedClasses(Person.class,Contact.class,Role.class,PersonAudit.class);
 	    sessionBuilder.setProperty("hibernate.show_sql", "true");
 	    sessionBuilder.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 	    return sessionBuilder.buildSessionFactory();

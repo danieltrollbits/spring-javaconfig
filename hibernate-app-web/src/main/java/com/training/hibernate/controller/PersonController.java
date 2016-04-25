@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.ArrayList;
 
 import com.training.hibernate.services.PersonService;
+import com.training.hibernate.services.PersonAuditService;
 import com.training.hibernate.dto.PersonDto;
 import com.training.hibernate.dto.RoleDto;
 import com.training.hibernate.dto.ContactDto;
+import com.training.hibernate.dto.PersonAuditDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +33,9 @@ public class PersonController {
 	
 	@Autowired
 	private PersonService personService;
+
+	@Autowired
+	private PersonAuditService personAuditService;
 
 	@InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -136,6 +141,14 @@ public class PersonController {
 			personService.saveOrUpdatePerson(personDto);
 			return new ModelAndView("redirect:/?message=Person saved");
 		}
+	}
+
+	@RequestMapping(value="/audit", method=RequestMethod.GET)
+	public ModelAndView audit(){
+		List<PersonAuditDto> personAuditDtos = personAuditService.list();
+		ModelAndView model = new ModelAndView("person_audit");
+		model.addObject("personAudits",personAuditDtos);
+		return model;
 	}
 
 }

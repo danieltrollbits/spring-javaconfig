@@ -46,7 +46,7 @@
 				        </div>
 				        <div class="row">
 				            <div class="column column-4">Employed?</div>
-				            <div class="column column-8">${personDto.employed}</div>
+				            <div class="column column-8">${personDto.employed ? 'yes' : 'no'}</div>
 				        </div>
 				    </div>
 				</div>

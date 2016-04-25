@@ -70,6 +70,7 @@
 								<input type="button" value="Add" name="add" id="btnAdd">
 								<input type="button" value="Update" name="update" id="btnUpdate">
 								<input type="button" value="Delete" name="delete" id="btnDelete">
+								<input type="button" value="Audit" name="audit" id="btnAudit">
 							</div>
 							<table class="table" border="1">
 								<thead>
@@ -139,6 +140,10 @@
 		$("#btnDelete").on("click",function(){
 		   $("#personForm").attr("action", "${pageContext.request.contextPath}/delete")
 		   .attr("method","post").submit();
+		});
+		$("#btnAudit").on("click",function(){
+		   $("#personForm").attr("action", "${pageContext.request.contextPath}/audit")
+		   .attr("method","get").submit();
 		});
 	</script>
 	</body>
