@@ -11,7 +11,9 @@ public interface PersonService {
 
 	public PersonDto getPersonById(int id);
 
-	public PersonDto saveOrUpdatePerson(PersonDto personDto);
+	public PersonDto savePerson(PersonDto personDto);
+
+	public PersonDto updatePerson(PersonDto personDto);
 
 	public PersonDto deletePerson(int id);
 

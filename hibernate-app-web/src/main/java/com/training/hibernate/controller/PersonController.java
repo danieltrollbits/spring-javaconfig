@@ -138,7 +138,12 @@ public class PersonController {
 			return model;
 		}
 		else{
-			personService.saveOrUpdatePerson(personDto);
+			if(personDto.getId() != 0){
+				personService.updatePerson(personDto);	
+			}
+			else{
+				personService.savePerson(personDto);
+			}
 			return new ModelAndView("redirect:/?message=Person saved");
 		}
 	}
@@ -150,5 +155,6 @@ public class PersonController {
 		model.addObject("personAudits",personAuditDtos);
 		return model;
 	}
+
 
 }

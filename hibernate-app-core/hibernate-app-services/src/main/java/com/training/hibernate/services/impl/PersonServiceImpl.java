@@ -29,8 +29,13 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public PersonDto saveOrUpdatePerson(PersonDto personDto){
-		return toDto(personDao.saveOrUpdatePerson(toModel(personDto)));
+	public PersonDto savePerson(PersonDto personDto){
+		return toDto(personDao.savePerson(toModel(personDto)));
+	}
+
+	@Override
+	public PersonDto updatePerson(PersonDto personDto){
+		return toDto(personDao.updatePerson(toModel(personDto)));
 	}
 
 	@Override

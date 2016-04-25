@@ -63,13 +63,14 @@ public class PersonDaoImpl implements PersonDao{
 	}
 
 	@Override
-	public Person saveOrUpdatePerson(Person person) {
-		if(person.getId() == 0){
-			sessionFactory.getCurrentSession().save(person);
-		}
-		else{
-			sessionFactory.getCurrentSession().update(person);
-		}
+	public Person savePerson(Person person) {
+		sessionFactory.getCurrentSession().save(person);
+		return person;
+	}
+
+	@Override
+	public Person updatePerson(Person person) {
+		sessionFactory.getCurrentSession().update(person);
 		return person;
 	}
 

@@ -15,29 +15,28 @@ public class AuditPersonAspect {
 
 	@Autowired
 	private PersonAuditService personAuditService;
-	private boolean isUpdate;
 
-	@Before("execution(* com.training.hibernate.services.PersonService.saveOrUpdatePerson(..))")
-	public void logBefore(JoinPoint joinPoint) {
+	@Pointcut("execution(* com.training.hibernate.services.PersonService.savePerson(..))")
+	public void save(){};
 
-		System.out.println("******");
-	}
-
-	@Pointcut("execution(* com.training.hibernate.services.PersonService.saveOrUpdatePerson(..))")
-	public void saveOrUpdate(){};
+	@Pointcut("execution(* com.training.hibernate.services.PersonService.updatePerson(..))")
+	public void update(){};
 
 	@Pointcut("execution(* com.training.hibernate.services.PersonService.deletePerson(..))")
 	public void delete(){};
 
 	 @AfterReturning(
-	 	pointcut = "saveOrUpdate() || delete()",
+	 	pointcut = "save() || update() || delete()",
       returning= "result")
    	public void logAfterReturning(JoinPoint joinPoint, Object result) {
 
 		System.out.println("saving person log");
 		System.out.println("Method returned value is : " + result);
 		Status status = null;
-		if(joinPoint.getSignature().getName().equals("saveOrUpdatePerson")){
+		if(joinPoint.getSignature().getName().equals("savePerson")){
+			status = Status.ADDED;
+		}
+		else if(joinPoint.getSignature().getName().equals("updatePerson")){
 			status = Status.MODIFIED;
 		}
 		else{

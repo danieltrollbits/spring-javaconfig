@@ -12,7 +12,9 @@ public interface PersonDao {
 
 	public List<Person> searchPerson(String lastName, String firstName, String middleName, String role);
 
-	public Person saveOrUpdatePerson(Person person);
+	public Person savePerson(Person person);
+
+	public Person updatePerson(Person person);
 
 	public Person deletePerson(int id);
 

@@ -13,7 +13,8 @@
   </modules>
 
   <properties>
-    <spring.version>4.0.3.RELEASE</spring.version>
+    <spring.version>4.2.2.RELEASE</spring.version>
+    <spring.security.version>4.0.1.RELEASE</spring.security.version>
   </properties>
 
   <dependencyManagement>
@@ -83,20 +84,22 @@
         <artifactId>commons-beanutils</artifactId>
         <version>1.9.2</version>
       </dependency>
+
+      <!-- spring -->
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-context</artifactId>
-        <version>4.0.3.RELEASE</version>
+        <version>${spring.version}</version>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-webmvc</artifactId>
-        <version>4.0.3.RELEASE</version>
+        <version>${spring.version}</version>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-orm</artifactId>
-        <version>4.0.3.RELEASE</version>
+        <version>${spring.version}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.commons</groupId>
@@ -117,6 +120,19 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-aop</artifactId>
       <version>${spring.version}</version>
+    </dependency>
+
+    <!-- spring security -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+      <version>${spring.security.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+      <version>${spring.security.version}</version>
     </dependency>
 
     <dependency>
