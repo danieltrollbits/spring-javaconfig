@@ -13,8 +13,6 @@ import com.training.hibernate.model.Person;
 import com.training.hibernate.model.Contact;
 import com.training.hibernate.model.Role;
 import com.training.hibernate.model.PersonAudit;
-import com.training.hibernate.aspect.HijackBeforeMethod;
-import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import com.training.hibernate.aspect.AuditPersonAspect;

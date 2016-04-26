@@ -53,7 +53,7 @@
 				<div class="row">
 				    <div class="column column-6">
 				    	<fieldset>
-							<legend>Role<span class="required">*</span> <form:errors path="roleDtos" cssClass="required"/></legend>
+							<legend>Role</legend>
 							<c:if test="${empty personDto.roleDtos}">
 								<div class="row">No details</div>
 							</c:if>
